@@ -1,16 +1,11 @@
-from config import database as access
-from Models import models as model
+from flask import Flask
+from routes.resources import recurso
+
+app = Flask(__name__)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///Cliente_huellas.sqlite"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]=False
+
+app.register_blueprint(recurso)
 
 
-##with access.app.app_context():
-  ##      access.db.create_all();
-    ##    print("creado con exito")
-def run():
-    with access.app.app_context():
-        access.db.create_all();
-        print("creado con exito")
-
-
-if __name__ == '__main__':
-   # access.app.run(debug=True)
-     run()
