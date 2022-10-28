@@ -45,7 +45,7 @@ class Pines:
      
         if not user or not Huella["Huella"]:
             print("revisa tus credenciales")
-            return render_template("welcome.html")
+            
         else:
-            return "logeado con exito!"+Huella["Huella"]
+           return render_template("welcome.html")
 
