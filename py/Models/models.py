@@ -8,8 +8,8 @@ class Cliente_huellas(UserMixin,db.Model):
     __tablename__ = 'Cliente_huella'
 
     id = Column(Integer, primary_key=True,autoincrement=True)
-    Huella= Column(Integer)
-    Cliente_pin=Column(String(100))
+    Huella= Column(String(100))
+    Cliente_pin=Column(Integer)
     
     def __init__(self, xHuella,xpincliente): ##constructor
         self.Huella =xHuella
