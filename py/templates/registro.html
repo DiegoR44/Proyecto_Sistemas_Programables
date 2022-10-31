@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Sistemas Programables</title>
+</head>
+<body>
+    <div id="registro">
+        <h1>Registro de Usuario y Huella</h1>
+        <form>
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre"><br>
+            <label for="pin">Pin:</label><br>
+            <input type="text" id="pin" name="pin" maxlength="5" placeholder="Pin"><br><br>
+            <input type="button" value="Siguiente" id="siguiente" onclick="cambioVista()">
+          </form>
+    </div>
+    <div id="huella" hidden>
+        <h1>Formulario de Huella</h1>
+        <form>
+            <input type="button" value="prueba" id="boton" onclick="pasosHuella()"><br>
+            <div id="primerPaso">
+                <label for="primerPaso">33%</label><br>
+                <img src="https://img.freepik.com/vector-premium/huella-dactilar_75816-9.jpg?w=2000" alt="Huella" width="100" height="100" id="huella1"><br>
+            </div>
+            <div id="segundoPaso" hidden>
+                <label for="segundoPaso">66%</label><br>
+                <img src="https://img.freepik.com/vector-premium/huella-dactilar_75816-9.jpg?w=2000" alt="Huella" width="100" height="100" id="huella2"><br>
+            </div>
+            <div id="tercerPaso" hidden>
+                <label for="tercerPaso">100%</label><br>
+                <img src="https://img.freepik.com/vector-premium/huella-dactilar_75816-9.jpg?w=2000" alt="Huella" width="100" height="100" id="huella3"><br>
+            </div>
+            <input type="button" value="enviarHuella" id="enviar" onclick="volverIndex()" hidden>
+            
+          </form>
+    </div>
+
+</body>
+</html>
+
+
+<script>
+    
+function cambioVista() {
+
+  if (document.getElementById("nombre").value == "" || document.getElementById("pin").value == "") {
+    alert("Favor de Completar el nombre y Pin");
+  } else {
+    document.getElementById("huella").hidden = false;
+    if (document.getElementById("registro").style.display === "none") {
+        document.getElementById("registro").style.display = "block";
+    } else {
+        document.getElementById("registro").style.display = "none";
+    }
+  }
+}
+
+                    
+function pasosHuella(){
+
+    if(document.getElementById("primerPaso").hidden == false){
+        document.getElementById("primerPaso").hidden = true;
+        document.getElementById("segundoPaso").hidden = false;
+    } else if(document.getElementById("segundoPaso").hidden == false){
+        document.getElementById("segundoPaso").hidden = true;        
+        document.getElementById("tercerPaso").hidden = false;
+        document.getElementById("enviar").hidden = false;
+    }
+}
+
+
+
+function volverIndex(){
+    window.location.href = "welcome.html";
+}
+</script>
