@@ -1,6 +1,6 @@
 import React, { useForm} from "react-hook-form";
 import Botones from "../Botones";
-import { useState, useEffect,memo} from "react";
+import {  useEffect} from "react";
 import "react-toastify/dist/ReactToastify.css";
 import Labels from "../Inputs";
 import Error from "../Errores";
@@ -39,7 +39,6 @@ const Alta_Cliente = (props) => {
             className="max-w-[400px] w-full mx-auto bg-white p-4"
             onSubmit={handleSubmit((data) => {
               PostDatos(data);
-              console.log(data)
             })}
           >
             <h2 className="text-blue-900 text-4xl font-bold text-center py-1">

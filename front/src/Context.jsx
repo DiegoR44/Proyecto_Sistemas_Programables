@@ -11,8 +11,7 @@ export const DataProvider = ({ children }) => {
     services.crear(data)
       .then((res) => {
         SetRegistro(res.data);
-        console.log(Registro)
-        toast.success("Usuario Registrado", {
+        toast.success("Registro Hecho", {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -22,8 +21,6 @@ export const DataProvider = ({ children }) => {
         });
       })
       .catch( (error)=> {
-
-       console.log(error.message);
         toast.error(error.message, {
           autoClose: 5000,
           hideProgressBar: false,

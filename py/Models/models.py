@@ -12,10 +12,10 @@ class Cliente_huellas(UserMixin,db.Model):
     Cliente_pin=Column(Integer,unique=True)
     Nombre=Column(String(80))
     
-    def __init__(self, Huella,Cliente_Pin,Nombre):##constructor
-        self.Huella =Huella
-        self.Cliente_pin=Cliente_Pin
-        self.Nombre=Nombre
+    def __init__(self, huella,cliente_Pin,nombre):##constructor
+        self.Huella=huella
+        self.Cliente_pin=cliente_Pin
+        self.Nombre=nombre
 
     def __repr__(self):
         return f'cliente_huella({self.Huella},{self.Cliente_pin},{self.Nombre})'
@@ -27,7 +27,9 @@ class Cliente_huellas(UserMixin,db.Model):
         return {
                 "Huella": self.Huella,
                 "Cliente pin": self.Cliente_pin,
-                "Nombre": self.Nombre}
+                "Nombre": self.Nombre
+                }
     
     
+
 

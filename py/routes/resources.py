@@ -16,44 +16,47 @@ class Pines:
 
     @recurso.route("/new_register", methods=["POST"])
     def new_register():
-        Huella = request.form.get('Huella')
-        Cliente_pin = request.form.get('Cliente_pin')
-        Nombre= request.form.get('Nombre')
+        Huella = request.get_json(force=True)
+        Cliente_pin = request.get_json(force=True)
+        Nombre= request.get_json(force=True)
         
-        if Huella and Cliente_pin and Nombre  is None:
+        if Huella.get("Huella") and Cliente_pin.get("Cliente_pin") and Nombre.get("Nombre")  is None:
             return jsonify({"message": "Bad request"}), 400
          
-        User_validation = Cliente_huellas.query.filter_by(Cliente_pin=Cliente_pin).first()
-        
+        User_validation = Cliente_huellas.query.filter_by(Cliente_pin=Cliente_pin.get("Cliente_pin")).first()
+       
         if User_validation: # if a user is found, we want to redirect back to signup page so user can try again
-            flash('Email address already exists')
-            return render_template("welcome.html")
-
-        user_register = Cliente_huellas(
-            Huella=Huella, 
-            Cliente_pin=Cliente_pin,
-            Nombre=Nombre,
-        )
-        
-        db.session.add(user_register)
-        db.session.commit()
-        return "registro hecho"
+           return jsonify({"message": "Registro existente"}), 400
+       
+        else:
+            user_register = Cliente_huellas(
+            Huella.get("Huella"),
+            Cliente_pin.get("Cliente_pin"),
+            Nombre.get("Nombre")
+              )
+            db.session.add(user_register)
+            db.session.commit()
+            return jsonify({"message": "Registro con exito"}), 201
 
     @recurso.route("/get_register", methods=["GET"])
     def get_register():
-        users = Cliente_huellas.query.all()
-        return jsonify(users.serialize())
+       user= Cliente_huellas.query.all()
+       return Cliente_huellas.jsonify(user)
+      
 
     @recurso.route("/auth", methods=["POST"])
     def login_cliente():
         Huella = request.get_json(force=True)
-        Pin_cliente = request.get_json(force=True)
+        Cliente_pin = request.get_json(force=True)
         
-        user = Cliente_huellas.query.filter_by(Cliente_pin=Pin_cliente["Cliente_pin"]).first()
+
         
-        if not user or not Huella["Huella"]:
-          return "revisa tus credenciales"
+        user = Cliente_huellas.query.filter_by(Cliente_pin=Cliente_pin.get("Cliente_pin")).first()
+        
+        if not user or not Huella.get("Huella"):
+            return "revisa tus credenciales"
             
         else:
-           return render_template("welcome.html")
+           return jsonify({"message": "usuario encontrado"}), 201
+
 

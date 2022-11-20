@@ -8,9 +8,10 @@ from utils.db import db
 def run():
     db.init_app(app)
     with app.app_context():
-         db.create_all()
+         #db.create_all()
          app.run(debug=True)
 
+    
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
