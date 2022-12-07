@@ -3,7 +3,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from Models.models import Cliente_huellas
 from utils.db import db
 from flask_login import login_user
-
+from pygame import mixer
+import os,random
+from playsound import playsound
+  
 recurso = Blueprint("resources", __name__)
 class Pines:
     @recurso.route("/")
@@ -34,9 +37,13 @@ class Pines:
             Cliente_pin.get("Cliente_pin"),
             Nombre.get("Nombre")
               )
+              
             db.session.add(user_register)
             db.session.commit()
+           
+          
             return jsonify({"message": "Registro con exito"}), 201
+           
 
     @recurso.route("/get_register", methods=["GET"])
     def get_register():
@@ -46,17 +53,21 @@ class Pines:
 
     @recurso.route("/auth", methods=["POST"])
     def login_cliente():
-        Huella = request.get_json(force=True)
+        Nombre = request.get_json(force=True)
         Cliente_pin = request.get_json(force=True)
-        
-
+    
         
         user = Cliente_huellas.query.filter_by(Cliente_pin=Cliente_pin.get("Cliente_pin")).first()
         
-        if not user or not Huella.get("Huella"):
-            return "revisa tus credenciales"
-            
+        if not user and not Nombre.get("Nombre"):
+           return jsonify({"message": "usuario no encontrado"}), 400
         else:
-           return jsonify({"message": "usuario encontrado"}), 201
+            mixer.init()
+            mixer.music.load("./bad-bunny-neverita-video-oficial-un-verano-sin-ti.mp3")
+            mixer.music.set_volume(0.8)
+            mixer.music.play()
+            mixer.music.fadeout(26000)
+        
 
 
+            return jsonify({"message": "usuario encontrado"}), 201

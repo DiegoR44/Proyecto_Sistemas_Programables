@@ -5,6 +5,7 @@ import { Popover } from "@headlessui/react";
 import img from "../assets/home.png";
 import Register from "./registers/new_register"
 import Modal from "./registers/Modal";
+import AuthData from "./registers/auth";
 import { ToastContainer } from "react-toastify";
 var currentTime = new Date();
 var year = currentTime.getFullYear();
@@ -13,7 +14,7 @@ const hoy = new Date(tiempoTranscurrido);
 
 export default function HomeComponent() {
 
- const  {PostDatos}=useContext(DataContext);
+ const  {PostDatos,Auth}=useContext(DataContext);
 
   return (
     <div className="relative bg-white overflow-hidden sm::rounded-md  sm:p-4">
@@ -64,13 +65,33 @@ export default function HomeComponent() {
                 <span>Fecha: {hoy.toDateString()}.</span>
               </p>
               <hr></hr>
-              <Modal
+        
+                <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                <div className="rounded-md shadow ">
+                <Modal
                 tituloModal="Registro"
                 ComponenteBody={
                   <Register titulo={"Nuevo Registro"} 
                   PostDatos={PostDatos} />
                 }
               />
+               
+                </div>
+                <div className="mt-3 sm:mt-0 sm:ml-3">
+                
+                <Modal
+                tituloModal="Verificación"
+                ComponenteBody={
+                 <AuthData titulo={"Match"}
+                 AuthData={Auth}
+                 />
+                }
+              />
+                  
+                </div>
+                
+                
+              </div>
             </div>
           </main>
         </div>

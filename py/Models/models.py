@@ -8,7 +8,7 @@ class Cliente_huellas(UserMixin,db.Model):
     __tablename__ = 'Cliente_huella'
 
     id = Column(Integer, primary_key=True,autoincrement=True)
-    Huella= Column(String(100),unique=True)
+    Huella= Column(BLOB,unique=True)
     Cliente_pin=Column(Integer,unique=True)
     Nombre=Column(String(80))
     
